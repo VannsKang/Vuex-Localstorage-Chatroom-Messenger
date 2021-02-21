@@ -1,0 +1,29 @@
+@import "@/styles/mixin.scss";
+
+.upload {
+  position: fixed;
+  width: 373px;
+  z-index: 10;
+
+  &_list {
+    height: 4.25rem;
+    padding: 0.688rem 0 0.688rem 1rem;
+    background: var(--primary);
+    overflow-x: auto;
+    overflow-y: hidden;
+    @include flexSet("flex-start", "center");
+
+    &_frame {
+      min-width: 2.875rem;
+      min-height: 2.875rem;
+      margin: 0 0.625rem 0 0;
+
+      img {
+        width: 100%;
+        background-color: #47909b;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

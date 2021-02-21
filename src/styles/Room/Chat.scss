@@ -1,0 +1,158 @@
+@import "@/styles/mixin.scss";
+
+.chat {
+  position: relative;
+  width: 100%;
+  height: 601px;
+  background: $pale-grey;
+
+  &_contents {
+    max-height: 32.063rem;
+    padding: 1.25rem 1rem;
+    overflow: auto;
+
+    &_message {
+      &_date {
+        @include flexSet("center", "center");
+
+        &_divider {
+          width: 7.5rem;
+          height: 0.063rem;
+          margin: 1.063rem 0;
+          // opacity: 0.4;
+          background-color: #e6e6eb;
+        }
+
+        &_time {
+          width: 6.438rem;
+          color: $charcoal-grey-two;
+          text-align: center;
+          font-family: AppleSDGothicNeo;
+          font-size: 0.75rem;
+          font-weight: 500;
+          opacity: 0.4;
+        }
+      }
+
+      &_speaker {
+        @include flexSet("flex-end", "flex-end");
+
+        &_text {
+          margin-bottom: 0.625rem;
+          padding: 0.75rem;
+          background-color: var(--primary);
+          color: $white;
+          border-radius: 12px;
+          box-shadow: 0 2px 4px 0 rgba(91, 56, 177, 0.4);
+          text-align: right;
+          font-family: AppleSDGothicNeo;
+          font-size: 0.875rem;
+          font-weight: 600;
+          letter-spacing: -0.1px;
+        }
+
+        &_photo {
+          width: 12.5rem;
+          height: 12.5rem;
+          margin-bottom: 0.625rem;
+          background-color: #47909b;
+          border-radius: 12px;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+          > img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+          }
+        }
+
+        &_time {
+          margin-bottom: 0.625rem;
+          margin-right: 0.313rem;
+          color: $charcoal-grey-two;
+          font-family: AppleSDGothicNeo;
+          font-size: 0.75rem;
+          font-weight: 500;
+          opacity: 0.4;
+        }
+      }
+      &_listner {
+        @include flexSet("flex-start", "flex-end");
+
+        &_text {
+          margin-bottom: 0.625rem;
+          padding: 0.75rem;
+          background-color: $white;
+          color: $charcoal-grey-two;
+          border-radius: 12px;
+          box-shadow: 0 2px 4px 0 $black-10;
+          font-family: AppleSDGothicNeo;
+          font-size: 0.875rem;
+          font-weight: 600;
+          letter-spacing: -0.1px;
+        }
+
+        &_photo {
+          width: 12.5rem;
+          height: 12.5rem;
+          margin-bottom: 0.625rem;
+          background-color: #47909b;
+          border-radius: 12px;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+          > img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+          }
+        }
+
+        &_time {
+          margin-left: 0.313rem;
+          margin-bottom: 0.625rem;
+          color: $charcoal-grey-two;
+          font-family: AppleSDGothicNeo;
+          font-size: 0.75rem;
+          font-weight: 500;
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+
+  &_input {
+    position: absolute;
+    top: 33.313rem;
+    padding: 0 1rem;
+    @include flexSet("space-between", "center");
+
+    > input {
+      width: 17.563rem;
+      height: 3.125rem;
+      padding: 0 0 0 1rem;
+      background-color: $white;
+      border-radius: 25px;
+      box-shadow: 0 2px 4px 0 $black-10;
+
+      &::placeholder {
+        color: #74747e;
+        font-family: AppleSDGothicNeo;
+        font-size: 0.875rem;
+        font-weight: 500;
+        opacity: 0.6;
+        letter-spacing: -0.12px;
+      }
+    }
+
+    > button {
+      width: 3.125rem;
+      height: 3.125rem;
+      margin-left: 0.75rem;
+      background-color: var(--primary);
+      border-radius: 25px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

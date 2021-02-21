@@ -1,0 +1,54 @@
+@import './mixin.scss';
+
+// SECTION Global style
+@font-face {
+  font-family: AppleSDGothicNeo;
+  src: local(AppleSDGothicNeo-SemiBold),
+    url(/font/AppleSDGothicNeo-SemiBold.woff2) format('woff2'),
+    url(/font/AppleSDGothicNeo-SemiBold.woff) format('woff'),
+    url(/font/AppleSDGothicNeo-SemiBold.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+:root {
+  --bg: $black-10;
+  --primary: #3b5998;
+  transition: 1s ease;
+}
+
+* {
+  box-sizing: border-box;
+  border: 0;
+  &:focus {
+    outline: 0;
+  }
+}
+
+body {
+  margin: 0;
+  background: $black-10;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+button {
+  outline: 0;
+  &:focus {
+    outline: 0;
+  }
+}
