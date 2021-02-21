@@ -62,7 +62,7 @@ $ npm install
 1. 폴더 안에서 `npm run serve` 로 실행합니다.
 
 ```console
-$ npm run dev
+$ npm run serve
 ```
 
 ## 프로젝트 모듈 구조
