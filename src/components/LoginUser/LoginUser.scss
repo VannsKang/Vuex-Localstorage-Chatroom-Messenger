@@ -1,0 +1,86 @@
+@import '@/styles/mixin.scss';
+
+.users {
+	> ul {
+		margin-top: 0.625rem;
+	}
+
+	li {
+		width: 100%;
+		height: 4.625rem;
+		background-color: $white;
+		cursor: pointer;
+		@include flexSet(null, 'center');
+	}
+
+	&_profile {
+		width: 3.5rem;
+		height: 3.5rem;
+		margin: 0 0.938rem 0 1rem;
+
+		> img {
+			width: 100%;
+			height: 100%;
+			margin: 0 0.938rem 0 0;
+			background-color: #d8d8d8;
+			border-radius: 28px;
+		}
+	}
+
+	&_preview {
+		width: 14.375rem;
+		&_name {
+			color: $charcoal-grey;
+			font-family: AppleSDGothicNeo;
+			font-size: 1rem;
+			font-weight: bold;
+			letter-spacing: -0.2px;
+		}
+
+		&_message {
+			height: 1rem;
+			margin: 0.188rem 0 0;
+			color: $cool-grey;
+			font-family: AppleSDGothicNeo;
+			font-size: 0.813rem;
+			font-weight: 500;
+			letter-spacing: -0.1px;
+		}
+	}
+
+	&_noti {
+		@include flexSet('space-between', 'center', column);
+
+		&_time {
+			width: 1.813rem;
+			height: 0.813rem;
+			margin: 0.75rem 0 0.375rem 0.813rem;
+			color: $charcoal-grey-two;
+			text-align: right;
+			font-family: AppleSDGothicNeo;
+			font-size: 0.688rem;
+			font-weight: 500;
+			opacity: 0.4;
+		}
+
+		&_unread {
+			width: 1.125rem;
+			height: 1.125rem;
+			margin: 0.375rem 0.063rem 0.438rem 1.438rem;
+			background-color: var(--primary);
+			border-radius: 10.5px;
+			@include flexSet('center', 'center');
+
+			> span {
+				width: 0.375rem;
+				height: 0.625rem;
+				color: $white;
+				text-align: center;
+				font-family: AppleSDGothicNeo;
+				font-size: 0.625rem;
+				font-weight: bold;
+				letter-spacing: -0.08px;
+			}
+		}
+	}
+}
