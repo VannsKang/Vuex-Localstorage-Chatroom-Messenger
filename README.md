@@ -3,7 +3,7 @@
 </h3>
 
 <h4 align="center">
-  <a href="https://vuex_localstorage_only_messenger.vercel.app/">View Demo</a>
+  <a href="https://vuex-localstorage-chatroom-messenger.vercel.app/">View Demo</a>
 </h4>
 
 <p align=center> 
