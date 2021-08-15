@@ -18,13 +18,13 @@
 				<div v-else class="users_preview_name">{{ room.name }}</div>
 
 				<!-- last message -->
-				<div v-if="roomLog && roomLog[room.id]" class="users_preview_message">
+				<div v-if="showLast(room.id, 'message')" class="users_preview_message">
 					{{ showLast(room.id, 'message') }}
 				</div>
 			</div>
 
 			<!-- right -->
-			<div v-if="roomLog && roomLog[room.id]" class="users_noti">
+			<div v-if="showLast(room.id, 'time')" class="users_noti">
 				<!-- time or day -->
 				<div v-if="showLast(room.id, 'day') === todayOfWeek" class="users_noti_time">
 					{{ showLast(room.id, 'time') }}

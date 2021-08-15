@@ -10,7 +10,7 @@ const state = (): UploadState => ({
 
 // SECTION ======== mutations =========
 const mutations = {
-	updateClicked(state: UploadState): void {
+	activeUploadMenu(state: UploadState): void {
 		state.isClicked = !state.isClicked;
 	},
 
@@ -25,8 +25,8 @@ const mutations = {
 
 // SECTION ======== actions =========
 const actions = {
-	updateClickedAction({ commit }: ActionContext<UploadState, RootState>): void {
-		commit('updateClicked');
+	activeUploadMenuAction({ commit }: ActionContext<UploadState, RootState>): void {
+		commit('activeUploadMenu');
 	},
 
 	resetClickedAction({ commit }: ActionContext<UploadState, RootState>): void {

@@ -6,11 +6,11 @@
   <a href="https://vuex-localstorage-chatroom-messenger.vercel.app/">View Demo</a>
 </h4>
 
-<p align=center> 
-<img src="https://user-images.githubusercontent.com/4216651/108622808-8e7a1980-747e-11eb-865c-70edfbf2db3c.gif" alt="demo-introduction" width="30%"/>
-</p>
-
 <img src="https://user-images.githubusercontent.com/4216651/108622806-8c17bf80-747e-11eb-9919-ea7839301e9c.png" alt="messenger-introduction" width="100%"/>
+
+|                                                                         Web                                                                         |                                                                        Mobile                                                                        |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/4216651/129524001-7d3a20e6-1cf0-4d24-94a5-779debd80f6b.gif" alt="messenger-web" width="1050" /> | <img src="https://user-images.githubusercontent.com/4216651/108622808-8e7a1980-747e-11eb-865c-70edfbf2db3c.gif" alt="messenger-mobile" width="300"/> |
 
 ---
 
@@ -49,11 +49,6 @@
 - 날짜가 바뀌면 날짜 구분선이 삽입됩니다.
 - 메세지 양과 상관없이 가장 최근 메세지 화면으로 최초화면이 표시됩니다.
 - 사진 아이콘을 클릭하면 사진 메뉴가 표시되고 메세지에 전송 가능합니다.
-
-### Future work plan
-
-- 현재: 채팅방 기준 채팅형식으로 구현
-- 향후: 메신저와 같이 유저기준 채팅 형식으로 재구성 예정
 
 ### Built With
 
@@ -128,6 +123,7 @@ npm install --global yarn
 │   │   ├── Rooms
 │   │   ├── Upload
 │   │   └── index.ts
+│   ├── plugins
 │   ├── router
 │   ├── store/
 │   │   ├── reducers
@@ -182,6 +178,7 @@ npm install --global yarn
   "lodash": "^4.17.21",
   "vue": "^2.6.11",
   "vue-router": "^3.2.0",
+  "vue-toastification": "^1.7.11",
   "vuex": "^3.4.0",
   "vuex-persist": "^2.3.0"
 },

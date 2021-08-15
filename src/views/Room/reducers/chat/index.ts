@@ -3,13 +3,13 @@ import { RootState } from '@/store/reducers';
 import { ChatState, Chat, ChatBulk } from '@/views/Room/typings';
 
 const state = (): ChatState => ({
-	chatLog: [],
+	chatLog: [], //local chat status
 	roomLog: {},
 });
 
 const mutations = {
 	updateRoomLog(state: ChatState, payload: ChatBulk): void {
-		state.roomLog[payload.host.id] = payload;
+		state.roomLog[payload.logined.id] = payload;
 	},
 
 	updateChatLog(state: ChatState, payload: Chat[]): void {
@@ -18,6 +18,11 @@ const mutations = {
 
 	resetChatLog(state: ChatState): void {
 		state.chatLog = [];
+	},
+
+	resetAllChats(state: ChatState): void {
+		state.chatLog = [];
+		state.roomLog = {};
 	},
 };
 
@@ -32,6 +37,10 @@ const actions = {
 
 	resetChatLogAction({ commit }: ActionContext<ChatState, RootState>): void {
 		commit('resetChatLog');
+	},
+
+	resetAllChatsAction({ commit }: ActionContext<ChatState, RootState>): void {
+		commit('resetAllChats');
 	},
 };
 

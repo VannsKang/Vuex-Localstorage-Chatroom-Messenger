@@ -1,0 +1,169 @@
+@mixin fill-full($dir: 'full', $type: absolute) {
+	position: $type;
+	@if $dir != 'bottom' {
+		top: 0;
+	}
+	@if $dir != 'right' {
+		left: 0;
+	}
+	@if $dir != 'left' {
+		right: 0;
+	}
+	@if $dir != 'top' {
+		bottom: 0;
+	}
+}
+
+.cat {
+	position: relative;
+	width: 100%;
+	max-width: 20em;
+	background-color: #e6dcdc;
+	overflow: hidden;
+
+	&::before {
+		display: block;
+		padding-bottom: 100%;
+		content: '';
+	}
+
+	&:hover > * {
+		animation-play-state: paused;
+	}
+	&:active > * {
+		animation-play-state: running;
+	}
+}
+
+%cat-img {
+	animation: rotating 2.79s cubic-bezier(0.65, 0.54, 0.12, 0.93) infinite;
+	@include fill-full;
+
+	&::before {
+		position: absolute;
+		width: 50%;
+		height: 50%;
+		background-image: url('https://images.weserv.nl/?url=i.imgur.com/M1raXX3.png&il');
+		background-size: 200%;
+		content: '';
+		background-repeat: no-repeat;
+	}
+}
+
+.cat__head {
+	@extend %cat-img;
+
+	&::before {
+		top: 0;
+		right: 0;
+		background-position: 100% 0%;
+		transform-origin: 0% 100%;
+		transform: rotate(90deg);
+	}
+}
+
+.cat__tail {
+	animation-delay: 0.2s;
+	@extend %cat-img;
+
+	&::before {
+		bottom: 0;
+		left: 0;
+		background-position: 0% 100%;
+		transform-origin: 100% 0%;
+		transform: rotate(-30deg);
+	}
+}
+
+.cat__body {
+	animation-delay: 0.1s;
+	@extend %cat-img;
+
+	&:nth-of-type(2) {
+		animation-delay: 0.2s;
+	}
+
+	&::before {
+		right: 0;
+		bottom: 0;
+		background-position: 100% 100%;
+		transform-origin: 0% 0%;
+	}
+}
+
+@keyframes rotating {
+	from {
+		transform: rotate(720deg);
+	}
+	to {
+		transform: none;
+	}
+}
+
+.box {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	justify-content: center;
+	align-items: center;
+	width: 375px;
+	height: 667px;
+	background-color: #e6dcdc;
+	opacity: 0.5;
+	z-index: 10;
+	flex: 1;
+}
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	margin: 0;
+	line-height: 1.4;
+}
+
+.intro {
+	width: 90%;
+	max-width: 36rem;
+	margin: 0 auto 1em;
+	padding-top: 0.5em;
+	padding-bottom: 1rem;
+	text-align: center;
+	text-transform: capitalize;
+	font-size: calc(1rem + 2vmin);
+	border-bottom: 1px dashed rgba(#000, 0.3);
+
+	small {
+		display: block;
+		text-transform: none;
+		opacity: 0.5;
+		font-style: italic;
+	}
+}
+
+.info {
+	margin: 0;
+	padding: 1em;
+	text-align: right;
+	font-family: serif;
+	font-size: 0.9em;
+	opacity: 0.5;
+	font-style: italic;
+
+	a {
+		color: inherit;
+	}
+}
