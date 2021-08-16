@@ -10,16 +10,18 @@
 import Vue, { VueConstructor } from 'vue';
 import { mapActions, mapState } from 'vuex';
 import { LoginUser } from '@/components';
+
 import { UserState, User, Logined } from '@/views/Home/typings';
 
-interface VuexBindings {
+interface HomeLocalType {
 	users: User[];
+
 	loadUserData: () => Promise<void>;
 	updateLoginedAction: (payload: Logined) => void;
 	loginHandler: () => void;
 }
 
-export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
+export default (Vue as VueConstructor<Vue & HomeLocalType>).extend({
 	name: 'Home',
 
 	components: { LoginUser },
@@ -31,11 +33,24 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 	},
 
 	mounted() {
-		this.loadUserData();
+		this.initSetup();
 	},
 
 	methods: {
-		...mapActions('userReducer', ['loadUserData', 'updateLoginedAction']),
+		...mapActions('userReducer', [
+			'loadUserData',
+			'updateLoginedAction',
+			'updateLoadingStatusAction',
+		]),
+
+		initSetup() {
+			// NOTE for visualization: don't have to need settimeout here tho.. just for fun!
+			this.updateLoadingStatusAction('loading');
+			this.loadUserData();
+			setTimeout(() => {
+				this.updateLoadingStatusAction('complete');
+			}, 2000);
+		},
 
 		loginHandler(e: MouseEvent): void {
 			const selectedUser = e.currentTarget as HTMLLIElement;

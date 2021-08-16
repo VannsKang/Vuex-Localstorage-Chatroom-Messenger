@@ -1,6 +1,7 @@
 export interface UserState {
 	logined: Logined | null;
 	users: User[] | null;
+	isLoading: boolean;
 }
 
 export interface Logined {

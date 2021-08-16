@@ -1,4 +1,5 @@
 @import './mixin.scss';
+@import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
 
 // SECTION Global style
 @font-face {
@@ -29,6 +30,7 @@
 body {
 	margin: 0;
 	background: $black-10;
+
 	user-select: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -49,5 +51,25 @@ button {
 	outline: 0;
 	&:focus {
 		outline: 0;
+	}
+}
+
+// animation
+@keyframes flicker {
+	0%,
+	18%,
+	22%,
+	25%,
+	53%,
+	57%,
+	100% {
+		text-shadow: 0 0 4px rgb(63, 94, 251), 0 0 11px rgb(63, 94, 251), 0 0 19px rgb(63, 94, 251),
+			0 0 40px rgb(63, 94, 251);
+	}
+
+	20%,
+	24%,
+	55% {
+		text-shadow: none;
 	}
 }

@@ -6,6 +6,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import { faBatteryHalf } from '@fortawesome/free-solid-svg-icons';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBluetoothB } from '@fortawesome/free-brands-svg-icons';
@@ -20,12 +21,11 @@ library.add(
 	faBluetoothB,
 	faSignInAlt,
 	faBatteryHalf,
-	faPalette
+	faPalette,
+	faTrashAlt
 );
 
-export default {
-	FontAwesomeIcon,
-};
+export default { FontAwesomeIcon };
 
 // LINK SVG
 export * from './chat-send';

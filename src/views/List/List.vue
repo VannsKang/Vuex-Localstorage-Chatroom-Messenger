@@ -22,7 +22,7 @@ import { Logined, Nullable, UserState } from '@/views/Home/typings';
 import { RoomState, Room } from '@/views/List/typings';
 import { ChatState, Chat, RoomLog } from '@/views/Room/typings';
 
-interface VuexBindings {
+interface ListLocalType {
 	rooms: Room[];
 	sortedRooms: Room[];
 	roomLog: RoomLog;
@@ -32,12 +32,12 @@ interface VuexBindings {
 	updateHostAction: () => void;
 	updateSortedRoomsAction: () => void;
 	enterChat: () => Promise<void>;
-	showLast: (id: number, type: string) => string | null;
+	showLast: (hostID: number, LoginId: number, type: string) => string | null;
 	showUnreadCount: (id: number) => number | null;
 	updateRoomStatus: () => Promise<void>;
 }
 
-export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
+export default (Vue as VueConstructor<Vue & ListLocalType>).extend({
 	name: 'List',
 
 	components: { Rooms },
@@ -86,10 +86,16 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 		},
 
 		showLast(id: number, type: string): string | Nullable {
-			if (!this.roomLog[id] || !this.roomLog[id].chats || !this.roomLog[id].chats.length) return;
+			let validUserConversation = this.roomLog[this.logined.id];
+			if (!validUserConversation) return;
 
-			const userRoomLog = this.roomLog[id].chats;
-			const lastMessage = userRoomLog[userRoomLog.length - 1] as Chat;
+			let validRoom = validUserConversation[id];
+			if (!validRoom) return;
+
+			const userChats = validRoom?.chats;
+			if (!userChats || !userChats.length) return;
+
+			const lastMessage = userChats[userChats.length - 1] as Chat;
 
 			if (!lastMessage) return;
 
@@ -106,19 +112,26 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 		},
 
 		showUnreadCount(id: number): number | Nullable {
-			if (!this.roomLog[id]) return null;
+			let validUserConversation = this.roomLog[this.logined.id];
+			if (!validUserConversation) return;
 
-			const chats = this.roomLog[id].chats;
-			const unreadChats = chats.filter((chat) => chat.isRead === false);
+			let validRoom = validUserConversation[id];
+			if (!validRoom) return;
+
+			const chats = validRoom.chats;
+			const unreadChats = chats.filter(
+				(chat) => chat.isRead === false && chat.name.id !== this.logined.id
+			);
 
 			return unreadChats ? unreadChats.length : null;
 		},
 
-		getLastMessageTime(id: number, roomLog: RoomLog) {
-			if (!roomLog[id] || !roomLog[id].chats || !roomLog[id].chats.length) return null;
+		getLastMessageTime(hostId: number, LoginId: number, roomLog: RoomLog) {
+			if (!roomLog[LoginId] || !roomLog[LoginId][hostId] || !roomLog[LoginId][hostId].chats.length)
+				return null;
 
-			const userRoomLog = roomLog[id].chats;
-			const lastMessage = userRoomLog[userRoomLog.length - 1] as Chat;
+			const userChatHistory = roomLog[LoginId][hostId].chats;
+			const lastMessage = userChatHistory[userChatHistory.length - 1] as Chat;
 
 			return lastMessage.time;
 		},
@@ -130,15 +143,16 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 				const newRooms = cloneDeep(this.rooms);
 
 				const unMessagedRooms = newRooms.filter(
-					(room) => !this.getLastMessageTime(room.id, this.roomLog)
+					(room) => !this.getLastMessageTime(room.id, this.logined.id, this.roomLog)
 				);
 				const messagedRooms = newRooms.filter((room) =>
-					this.getLastMessageTime(room.id, this.roomLog)
+					this.getLastMessageTime(room.id, this.logined.id, this.roomLog)
 				);
 
 				const orderedRooms = messagedRooms.sort((room2, room1) => {
-					const roomlog1 = this.roomLog[room1.id].chats;
-					const roomlog2 = this.roomLog[room2.id].chats;
+					const loginUserRooms = this.roomLog[this.logined.id];
+					const roomlog1 = loginUserRooms[room1.id].chats;
+					const roomlog2 = loginUserRooms[room2.id].chats;
 
 					const lastMessageAbsoluteTimeRoom1 = new Date(
 						roomlog1[roomlog1.length - 1].time

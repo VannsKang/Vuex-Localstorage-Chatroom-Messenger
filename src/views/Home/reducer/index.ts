@@ -6,6 +6,7 @@ import { UserState, User, Logined } from '@/views/Home/typings';
 const state = (): UserState => ({
 	logined: null,
 	users: null,
+	isLoading: false,
 });
 
 const mutations = {
@@ -16,6 +17,10 @@ const mutations = {
 	updateLogined(state: UserState, payload: Logined): void {
 		state.logined = payload;
 	},
+
+	updateLoadingStatus(state: UserState, payload: boolean): void {
+		state.isLoading = payload;
+	},
 };
 
 const actions = {
@@ -25,6 +30,20 @@ const actions = {
 
 	updateLoginedAction({ commit }: ActionContext<UserState, RootState>, payload: Logined): void {
 		commit('updateLogined', payload);
+	},
+
+	updateLoadingStatusAction(
+		{ commit }: ActionContext<UserState, RootState>,
+		payload: string
+	): void {
+		switch (payload) {
+			case 'loading':
+				commit('updateLoadingStatus', true);
+				break;
+			case 'complete':
+				commit('updateLoadingStatus', false);
+				break;
+		}
 	},
 
 	// NOTE API Call

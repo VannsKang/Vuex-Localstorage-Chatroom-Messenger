@@ -25,5 +25,6 @@ const vuexLocal = new VuexPersistence<RootState>({
 
 export default new Vuex.Store({
 	modules: rootReducer,
+
 	plugins: [vuexLocal.plugin],
 });

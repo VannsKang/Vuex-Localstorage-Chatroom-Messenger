@@ -15,53 +15,58 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from 'vue';
+import Vue, { VueConstructor, PropType } from 'vue';
 import { mapActions, mapState } from 'vuex';
-import isEqual from 'date-fns/isEqual';
 import format from 'date-fns/format';
 
-import { Chat, RoomLog, ChatBulk, ChatState, UploadState } from '@/views/Room/typings';
-import { Host, RoomState } from '@/views/List/typings';
-import { Logined, UserState } from '@/views/Home/typings';
+import { Chat, RoomLog, UploadState, UploadLocalType } from '@/views/Room/typings';
+import { Host } from '@/views/List/typings';
+import { Logined } from '@/views/Home/typings';
 
-interface VuexBindings {
-	host: Host;
-	logined: Logined;
-	roomlog: RoomLog;
-	chatLog: Chat[];
-	roomNumber: number;
-
-	photo: string;
-	chats: Chat[];
-	loadPhotoData: () => Promise<void>;
-	uploadPhoto: () => void;
-	updateRoomLogAction: (chatbulk: ChatBulk) => void;
-	updateChatLogAction: (chats: Chat[]) => void;
-	loadRoomLog: () => void;
-}
-
-export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
+export default (Vue as VueConstructor<Vue & UploadLocalType>).extend({
 	name: 'Upload',
 
+	props: {
+		isUploadClicked: {
+			type: Boolean,
+			default: false,
+		},
+		host: {
+			type: Object as PropType<Host>,
+			default: null,
+		},
+		logined: {
+			type: Object as PropType<Logined>,
+			default: null,
+		},
+		roomLog: {
+			type: Object as PropType<RoomLog>,
+			default: null,
+		},
+		chatLog: {
+			type: Array as PropType<Chat[]>,
+			default: null,
+		},
+		loadRoomLog: {
+			type: Function as PropType<(component: Vue) => void>,
+			default: null,
+		},
+		updateMessageSendStatus: {
+			type: Function as PropType<
+				(speaker: Logined | Host, receiver: Logined | Host, chats: Chat[]) => void
+			>,
+			default: null,
+		},
+		roomNumber: {
+			type: Number,
+			default: null,
+		},
+	},
+
 	computed: {
-		...mapState('roomReducer', {
-			host: (state) => (state as RoomState).host,
-		}),
-		...mapState('userReducer', {
-			logined: (state) => (state as UserState).logined,
-		}),
-		...mapState('chatReducer', {
-			roomlog: (state) => (state as ChatState).roomLog,
-			chatLog: (state) => (state as ChatState).chatLog,
-		}),
 		...mapState('uploadReducer', {
-			isUploadClicked: (state) => (state as UploadState).isClicked,
 			photos: (state) => (state as UploadState).photos,
 		}),
-
-		roomNumber() {
-			return parseInt(this.$route.params.id);
-		},
 	},
 
 	data: () => ({
@@ -70,17 +75,22 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 	}),
 
 	mounted() {
-		if (this.chatLog.length !== this.chats.length || !this.chatLog.length) this.loadRoomLog();
-		if (this.photos.length === 0) this.loadPhotoData();
-	},
-
-	updated() {
-		if (this.roomlog[this.roomNumber]?.chats.length !== this.chats.length) this.loadRoomLog();
+		this.initSetup();
 	},
 
 	methods: {
-		...mapActions('uploadReducer', ['loadPhotoData']),
-		...mapActions('chatReducer', ['updateRoomLogAction', 'updateChatLogAction']),
+		...mapActions('uploadReducer', ['loadPhotoData', 'resetClickedAction']),
+		...mapActions('chatReducer', ['updateChatLogAction']),
+
+		async initSetup() {
+			try {
+				if (!this.photos.length) await this.loadPhotoData();
+				if (!this.chats.length) await this.loadRoomLog(this);
+				await this.updateChatLogAction(this.chats);
+			} catch (error) {
+				console.error(error.message);
+			}
+		},
 
 		async uploadPhoto(e: MouseEvent) {
 			try {
@@ -92,17 +102,18 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 
 				// new message: template
 				const sendAt = new Date();
-
-				let latestMessage: Chat;
-				let latestMessageTime: Date;
 				let isSameTime: boolean;
 				let isSameDay: boolean;
 
 				if (this.chats.length) {
-					latestMessage = this.chats[this.chats.length - 1];
-					latestMessageTime = new Date((latestMessage as Chat).time);
-					isSameTime = isEqual(sendAt, latestMessageTime);
+					const latestMessage = this.chats[this.chats.length - 1];
+					const latestMessageOwnerId = latestMessage.name.id;
+					const latestMessageTime = new Date((latestMessage as Chat).time);
+					isSameTime = format(sendAt, 'H:mm') === format(latestMessageTime, 'H:mm');
 					isSameDay = format(sendAt, 'yyyy-MM-dd') === format(latestMessageTime, 'yyyy-MM-dd');
+					// if lastmessage is sametime and same senders, change to sametime status
+					if (isSameTime && latestMessageOwnerId === this.logined.id)
+						latestMessage.isSameTime = true;
 				} else {
 					isSameTime = false;
 					isSameDay = false;
@@ -114,36 +125,24 @@ export default (Vue as VueConstructor<Vue & VuexBindings>).extend({
 					message: 'picture',
 					photo,
 					isRead: false,
-					isSameTime,
+					isSameTime: false, // new message always show the send time
 					isSameDay,
 				};
 
 				// new chat
-				const chats = [...this.chats, newMessage] as Chat[];
+				const chats = [...this.chats, newMessage];
 				this.chats = chats;
 
-				const chatBulk = {
-					host: this.host,
-					chats,
-				};
-
-				await this.updateRoomLogAction(chatBulk);
 				this.updateChatLogAction(chats);
+				// * update my chatlog
+				this.updateMessageSendStatus(this.logined, this.host, chats);
+				// * update opponent chatlog
+				this.updateMessageSendStatus(this.host, this.logined, chats);
+
+				// reset
+				this.resetClickedAction();
 			} catch (error) {
 				console.error(error.message);
-			}
-		},
-
-		loadRoomLog() {
-			try {
-				// validation
-				const validRoom = this.roomlog[this.roomNumber];
-				if (!validRoom) throw new Error('Warning: No conversation');
-
-				this.chats = validRoom.chats;
-				this.updateChatLogAction(validRoom.chats);
-			} catch (error) {
-				console.warn(error.message);
 			}
 		},
 	},

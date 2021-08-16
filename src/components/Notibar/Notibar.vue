@@ -11,22 +11,37 @@
 				<FontAwesomeIcon :icon="['fas', 'wifi']" size="xs" color="white" />
 			</div>
 		</div>
-		<div class="noti_time"><span>1:20 PM</span></div>
+		<div class="noti_time">
+			<span>{{ time }}</span>
+		</div>
 		<div class="noti_phoneInfo">
 			<FontAwesomeIcon :icon="['fas', 'lock']" size="xs" color="white" />
 			<FontAwesomeIcon :icon="['fas', 'location-arrow']" size="xs" color="white" />
 			<FontAwesomeIcon :icon="['fas', 'stopwatch']" size="xs" color="white" />
 			<FontAwesomeIcon :icon="['fab', 'bluetooth-b']" size="xs" color="white" />
-			<span class="noti_phoneInfo_batteryview">100%</span>
+			<span class="noti_phoneInfo_batteryview"> {{ batteryRate }}% </span>
 			<FontAwesomeIcon :icon="['fas', 'battery-half']" color="white" />
 		</div>
 	</section>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import format from 'date-fns/format';
+import Vue from 'vue';
+
+export default Vue.extend({
 	name: 'Notibar',
-};
+
+	computed: {
+		time(): string {
+			return format(new Date(), 'h:mm a');
+		},
+
+		batteryRate(): number {
+			return Math.floor(Math.random() * 100);
+		},
+	},
+});
 </script>
 
 <style src="./Notibar.scss" lang="scss" scoped />
