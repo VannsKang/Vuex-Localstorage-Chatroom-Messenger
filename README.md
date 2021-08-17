@@ -16,7 +16,8 @@
 
 ## About The Project
 
-본 프로젝트는 소켓 등 백앤드 서버의 도움을 받지않고 프론트 서버만으로 메신저를 구현해보고자 시작했습니다.
+본 프로젝트는 소켓 등 백앤드 서버의 도움을 받지않고 프론트 서버만으로 메신저를 구현해보고자 시작했습니다.<br/>
+This project is documentation of the study to develop the messenger service without a server.
 
 1. 메세지 데이터 및 메세지 환경 구성을 위해 서버대신 `Vuex` 만을 이용해 요구 기능을 구현하였습니다.
 2. `Vuex persist` 모듈을 이용해 채팅 데이터 및 로그인 데이터를 로컬스토리지에 저장하여 반영구적으로 이용할 수 있도록 구성했습니다.
@@ -213,7 +214,7 @@ npm install --global yarn
 - 로컬스토리지를 이용하기 때문에 동시에 브라우저를 띄어 다른 사용자로 로그인하는 것이 불가능합니다.
 - 마찬가지로 다른 도메인에서는 채팅데이터가 공유되지 않습니다.
 
-This project is obtimized & tested in `Chrome`.
+This project is optimized & tested in `Chrome`.
 
 ---
 
@@ -222,5 +223,5 @@ Developed by SOOM
 </h3>
 
 <h4 align="center">
-<a href="https://soomlog.vercel.app/">Soomlog.vercel.app</a>
+<a href="https://www.soomlog.tech/">Soomlog.tech</a>
 </h4>
