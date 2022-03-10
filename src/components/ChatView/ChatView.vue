@@ -57,7 +57,7 @@
 		<form @submit.prevent="sendMessage" class="chat_input">
 			<input type="text" placeholder="Send Hello 👋" v-model.lazy="message" />
 			<button type="submit">
-				<Send />
+				<FontAwesomeIcon :icon="['fas', 'envelope']" size="xl" color="#fff" />
 			</button>
 		</form>
 	</section>
@@ -69,17 +69,12 @@ import { mapActions } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 import format from 'date-fns/format';
 
-import { Send } from '@/assets';
 import { Chat, RoomLog, ChatViewLocalType } from '@/views/Room/typings';
 import { Host } from '@/views/List/typings';
 import { Logined } from '@/views/Home/typings';
 
 export default (Vue as VueConstructor<Vue & ChatViewLocalType>).extend({
-	name: 'ChatView',
-
-	components: {
-		Send,
-	},
+	name: 'ChatViewVue',
 
 	props: {
 		host: {
@@ -131,7 +126,7 @@ export default (Vue as VueConstructor<Vue & ChatViewLocalType>).extend({
 
 	watch: {
 		chatLog: {
-			handler: function(chats) {
+			handler: function (chats) {
 				this.chats = chats;
 			},
 			deep: true,
@@ -156,7 +151,7 @@ export default (Vue as VueConstructor<Vue & ChatViewLocalType>).extend({
 				this.readMessage();
 				this.autoScollToLatest();
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 
@@ -212,7 +207,7 @@ export default (Vue as VueConstructor<Vue & ChatViewLocalType>).extend({
 				// reset
 				this.message = '';
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 
@@ -232,7 +227,7 @@ export default (Vue as VueConstructor<Vue & ChatViewLocalType>).extend({
 				// * update opponent chatlog
 				this.updateMessageReadStatus(this.host, this.logined, updatedChat);
 			} catch (error) {
-				console.warn(error.message);
+				console.error((error as Error).message);
 			}
 		},
 

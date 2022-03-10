@@ -55,7 +55,7 @@ interface LocalBindings {
 }
 
 export default (Vue as VueConstructor<Vue & LocalBindings>).extend({
-	name: 'Rooms',
+	name: 'RoomsVue',
 
 	props: {
 		rooms: {

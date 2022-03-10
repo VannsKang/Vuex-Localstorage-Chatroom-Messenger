@@ -24,7 +24,7 @@ import { Host } from '@/views/List/typings';
 import { Logined } from '@/views/Home/typings';
 
 export default (Vue as VueConstructor<Vue & UploadLocalType>).extend({
-	name: 'Upload',
+	name: 'UploadVue',
 
 	props: {
 		isUploadClicked: {
@@ -88,7 +88,7 @@ export default (Vue as VueConstructor<Vue & UploadLocalType>).extend({
 				if (!this.chats.length) await this.loadRoomLog(this);
 				await this.updateChatLogAction(this.chats);
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 
@@ -142,7 +142,7 @@ export default (Vue as VueConstructor<Vue & UploadLocalType>).extend({
 				// reset
 				this.resetClickedAction();
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 	},

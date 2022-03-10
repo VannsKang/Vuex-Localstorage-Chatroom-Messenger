@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<div :class="`_ ${isBrowser ? 'back-gradient' : ''}`">
+		<div :class="`_ ${isBrowser ? 'back-gradient' : null}`">
 			<section v-if="isBrowser" class="neon-title title">
 				Vuex Localstorage Chatroom Messenger
 			</section>

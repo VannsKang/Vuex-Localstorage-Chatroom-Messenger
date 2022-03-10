@@ -19,59 +19,50 @@
 본 프로젝트는 소켓 등 백앤드 서버의 도움을 받지않고 프론트 서버만으로 메신저를 구현해보고자 시작했습니다.<br/>
 This project is documentation of the study to develop the messenger service without a server.
 
-1. 메세지 데이터 및 메세지 환경 구성을 위해 서버대신 `Vuex` 만을 이용해 요구 기능을 구현하였습니다.
-2. `Vuex persist` 모듈을 이용해 채팅 데이터 및 로그인 데이터를 로컬스토리지에 저장하여 반영구적으로 이용할 수 있도록 구성했습니다.
-3. `/` 페이지는 각각 사용자들을 위한 로그인 페이지입니다
-4. `/list` 페이지는 각각 채팅방 리스트가 표시됩니다.
-5. `/room/{id}` `id`는 숫자이며 각각 채팅방 안에 대화내용이 보입니다.
-6. 테마를 토글할 수 있도록 구성했습니다.
-7. 사용자 이미지는 `https://randomuser.me/`, 기타 업로드 이미지는 `https://picsum.photos/`의 `API`를 이용해 구현했습니다.
-
-### Pages
-
-#### `/`
-
-- 우측 상단 팔레트 모양 아이콘을 누르면 테마가 토글이 됩니다.
-- 원하는 대상으로 로그인 가능합니다.
-
-#### `/list`
-
-- 채팅 목록 아이템은 최근 메세지 순으로 정렬합니다.
-- 각 채팅 목록 아이템은 최근 메세지와 읽지 않은 메세지 수, 전송시간을 출력합니다.
-- 날짜가 달라지면 전송시간이 요일로 나타납니다.
-- 메세지가 없는 채팅방은 가장 하단에 위치합니다.
-- 햄버거 메뉴를 누르면 로그인 화면으로 다시 이동합니다.
-- 로그인 사용자 본인의 채팅방에 들어가서 읽을 경우 안읽음 표시가 사라집니다.
-
-#### `/room/{id}`
-
-- 메세지 등록시간이 출력 됩니다. hh:mm
-- 한 사람이 같은 시간에 채팅메세지를 연속해서 보낸다면 마지막 채팅메세지만 시간이 출력 됩니다.
-- 날짜가 바뀌면 날짜 구분선이 삽입됩니다.
-- 메세지 양과 상관없이 가장 최근 메세지 화면으로 최초화면이 표시됩니다.
-- 사진 아이콘을 클릭하면 사진 메뉴가 표시되고 메세지에 전송 가능합니다.
+<p>
+    <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue%2Ejs&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Vuex-4FC08D?style=flat-square&logo=Vultr&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Font%20Awesome-528DD7?style=flat-square&logo=Font%20Awesome&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Lodash-3492FF?style=flat-square&logo=Lodash&logoColor=white"/>
+    <img src="https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=TypeScript&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>
+    <img src="https://img.shields.io/badge/pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white"/>
+</p>
 
 ### Built With
 
 - Vue
-
-- TypeScript
-
-- Vuex (Vuex-Persist)
-
+- Vuex
+- Vuex Persist
+- axios
+- lodash
+- vue-router
+- date-fns
+- core-js
 - SCSS
+- TypeScript
+- fontawesome
+- pnpm
+- Docker
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you start, install `Yarn` package to global.
+- Before you start, install `pnpm` package to global
 
-```sh
-npm install --global yarn
-```
+  ```sh
+  npm install --global pnpm
+  ```
+
+- Docker install required
+
+  https://www.docker.com/get-started
 
 ### Installation
+
+#### Local
 
 1.  Clone the repo
 
@@ -82,26 +73,68 @@ npm install --global yarn
 2.  Install NPM packages
 
     ```sh
-    yarn install
+    pnpm install
     ```
 
 3.  Run the project
 
     ```sh
-    yarn serve
+    pnpm serve
     ```
 
 4.  Lint the package
 
     ```sh
-    yarn lint
+    pnpm lint
     ```
 
 5.  Build the package
 
     ```sh
-    yarn build
+    pnpm build
     ```
+
+#### Docker
+
+1.  Run the Docker inside `./docker` folder
+
+    ```sh
+    docker-compose up
+    ```
+
+## Introduction
+
+1. For message data and message environment configuration, the request function is implemented using only `Vuex` instead of the backend server
+2. Using the `Vuex persist` module, chat data and login data are stored in local storage so that they can be used semi-permanently
+3. The `/` page is the login page for each user
+4. Each `/list` page displays a list of chat rooms
+5. `/room/{id}` `id` is a number and you can see the conversation in each chat room.
+6. Configured it to be able to toggle the color theme.
+7. User images are implemented using `https://randomuser.me/`, and other uploaded images are implemented using `API` of `https://picsum.photos/`.
+
+### Pages
+
+#### `/`
+
+- Click the palette icon in the upper right corner to toggle the theme
+- You can log in as any user you want
+
+#### `/list`
+
+- Chat list items are sorted by most recent messages
+- Each chat list item displays the most recent messages, the number of unread messages, and the transmission time
+- If the date is different, the transmission time is displayed as the day of the week
+- Chat rooms without messages are located at the bottom
+- Tapping the hamburger menu takes you back to the login screen
+- If you log in to your own chat room and read it, the unread mark disappears
+
+#### `/room/{id}`
+
+- The message registration timestamp is displayed (`hh:mm`)
+- If one person sends chat messages consecutively at the same time, only the last chat message is displayed with the time stamp
+- When the date changes, a date separator is inserted
+- Regardless of the number of messages, the first list item is displayed with the most recent message
+- Click the photo icon to display the photos and send them with a message
 
 ## Project Tree
 
@@ -158,61 +191,49 @@ npm install --global yarn
 └── ...
 ```
 
-1. `public/database/` 에 mockdata 가 있고 `API` 로 요청하는데 사용하였습니다.
-2. `src/api` 에는 `ajax` request, response 의 공통 로직(`interceptor`)가 위치해 ㅣㅇㅆ습니다.
-3. `public/font/` 와 `src/assets/`에 폰트와 이미지, 아이콘 파일이 위치해있습니다.
-4. `src/components/` 에는 `src/views/` 와 관련된 컴포넌트 모듈들이 위치해있습니다.
-5. `src/router/` 에 라우터가 위치해 있습니다.
-6. `src/store/` 에는 각각 채팅, 리스트, 로그인 관련 `reducer`를 모아주는 `Root Reducer`가 위치해있습니다.
-7. `src/styles/` 에는 공통 styles 파일이 위치해 있습니다.
-8. `src/views` 는 메인 뷰와 관련된 파일이 위치해있습니다. 각 뷰마다 사용하는 `ajax` 요청, `type`, `global state` 를 각 뷰별 `/api`, `/typings`, `/reducer` 에서 관리합니다. (`Global State`에 대한 `slice` 개념 적용)
+1. Mock data is in `public/database/` and used to make requests with `API`
+2. In `src/api`, the common logic (`interceptor`) of `ajax` request and response is located
+3. Font, image, and icon files are located in `public/font/` and `src/assets/`
+4. `src/components/` contains component modules related to `src/views/`
+5. The router is located in `src/router/`
+6. In `src/store/` there is a `Root Reducer` that collects `reducers` related to chat, list, and login respectively
+7. Common styles files are located in `src/styles/`
+8. `src/views` is where the main view and related files are located. The `ajax` request, `type`, and `global state` used for each view are managed in `/api`, `/typings`, and `/reducer` for each view (Applying `slice` concept to `Global State`)
 
 ## NPM Packages
 
-#### package.json
+#### packages
 
-```json
-"dependencies": {
-  "axios": "^0.21.0",
-  "core-js": "^3.6.5",
-  "date-fns": "^2.23.0",
-  "lodash": "^4.17.21",
-  "vue": "^2.6.11",
-  "vue-router": "^3.2.0",
-  "vue-toastification": "^1.7.11",
-  "vuex": "^3.4.0",
-  "vuex-persist": "^2.3.0"
-},
-"devDependencies": {
-  "@fortawesome/fontawesome-svg-core": "^1.2.34",
-  "@fortawesome/free-brands-svg-icons": "^5.15.2",
-  "@fortawesome/free-solid-svg-icons": "^5.15.2",
-  "@fortawesome/vue-fontawesome": "^2.0.2",
-  "@types/lodash": "^4.14.172",
-  "@typescript-eslint/eslint-plugin": "^4.18.0",
-  "@typescript-eslint/parser": "^4.18.0",
-  "@vue/cli-plugin-babel": "~4.5.0",
-  "@vue/cli-plugin-eslint": "~4.5.0",
-  "@vue/cli-plugin-router": "~4.5.0",
-  "@vue/cli-plugin-typescript": "~4.5.0",
-  "@vue/cli-plugin-vuex": "~4.5.0",
-  "@vue/cli-service": "~4.5.0",
-  "@vue/eslint-config-typescript": "^7.0.0",
-  "eslint": "^6.7.2",
-  "eslint-plugin-vue": "^6.2.2",
-  "node-sass": "^4.12.0",
-  "reset-css": "^5.0.1",
-  "sass-loader": "^8.0.2",
-  "typescript": "~4.1.5",
-  "vue-svg-loader": "^0.16.0",
-  "vue-template-compiler": "^2.6.14"
-}
+```
+dependencies:
+axios 0.26.1
+core-js 3.21.1
+date-fns 2.28.0
+lodash 4.17.21
+vue 2.6.14
+vue-router 3.5.3
+vue-toastification 1.7.14
+vuex 3.6.2
+vuex-persist 3.1.3
+
+devDependencies:
+@fortawesome/fontawesome-svg-core 1.3.0   @vue/cli-plugin-vuex 5.0.1
+@fortawesome/free-brands-svg-icons 6.0.0  @vue/cli-service 5.0.1
+@fortawesome/free-solid-svg-icons 6.0.0   @vue/eslint-config-typescript 9.1.0
+@fortawesome/vue-fontawesome 2.0.6        eslint 7.32.0
+@types/lodash 4.14.179                    eslint-plugin-vue 8.5.0
+@typescript-eslint/eslint-plugin 5.14.0   reset-css 5.0.1
+@typescript-eslint/parser 5.14.0          sass 1.49.9
+@vue/cli-plugin-babel 5.0.1               sass-loader 12.6.0
+@vue/cli-plugin-eslint 5.0.1              typescript 4.5.5
+@vue/cli-plugin-router 5.0.1              vue-svg-loader 0.17.0-beta.2
+@vue/cli-plugin-typescript 5.0.1          vue-template-compiler 2.6.14
 ```
 
 ## ETC
 
-- 로컬스토리지를 이용하기 때문에 동시에 브라우저를 띄어 다른 사용자로 로그인하는 것이 불가능합니다.
-- 마찬가지로 다른 도메인에서는 채팅데이터가 공유되지 않습니다.
+- Because local storage using, it is impossible to open a browser and log in as a different user at the same time
+- Likewise, chat data is not shared with other domains
 
 This project is optimized & tested in `Chrome`.
 
