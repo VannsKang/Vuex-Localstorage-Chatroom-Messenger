@@ -38,7 +38,7 @@ interface ListLocalType {
 }
 
 export default (Vue as VueConstructor<Vue & ListLocalType>).extend({
-	name: 'List',
+	name: 'ListVue',
 
 	components: { Rooms },
 
@@ -81,7 +81,7 @@ export default (Vue as VueConstructor<Vue & ListLocalType>).extend({
 
 				this.$router.push(`/room/${id}`);
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 
@@ -167,7 +167,7 @@ export default (Vue as VueConstructor<Vue & ListLocalType>).extend({
 				const newSortedRoom = [...orderedRooms, ...unMessagedRooms];
 				this.updateSortedRoomsAction(newSortedRoom);
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 	},

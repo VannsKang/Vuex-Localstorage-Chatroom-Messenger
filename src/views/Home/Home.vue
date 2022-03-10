@@ -22,7 +22,7 @@ interface HomeLocalType {
 }
 
 export default (Vue as VueConstructor<Vue & HomeLocalType>).extend({
-	name: 'Home',
+	name: 'HomeVue',
 
 	components: { LoginUser },
 
@@ -71,7 +71,7 @@ export default (Vue as VueConstructor<Vue & HomeLocalType>).extend({
 				// routing
 				this.$router.push('/list');
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 	},

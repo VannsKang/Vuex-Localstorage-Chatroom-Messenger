@@ -2,10 +2,10 @@
 	<nav class="nav">
 		<!-- SECTION nav left -->
 		<div v-if="viewTitle === 'Home'" class="nav_left" @click="backwardView">
-			<Hamburger />
+			<FontAwesomeIcon :icon="['fas', 'bars']" color="#fff" />
 		</div>
 		<div v-else class="nav_left" @click="backwardView">
-			<Back />
+			<FontAwesomeIcon :icon="['fas', 'angle-left']" color="#fff" />
 		</div>
 
 		<!-- SECTION nav title -->
@@ -24,15 +24,15 @@
 		</div>
 		<div v-if="viewTitle === 'List'" class="nav_right">
 			<span @click="userInfoHandler">
-				<Avatar />
+				<FontAwesomeIcon :icon="['fas', 'user']" color="#fff" />
 			</span>
 		</div>
 		<div v-if="viewTitle === 'Room'" class="nav_right">
 			<span @click="activeUploadMenuAction">
-				<Upload />
+				<FontAwesomeIcon :icon="['fas', 'image']" color="#fff" />
 			</span>
 			<span @click="underConstructionHandler">
-				<Search />
+				<FontAwesomeIcon :icon="['fas', 'magnifying-glass']" color="#fff" />
 			</span>
 		</div>
 	</nav>
@@ -40,7 +40,6 @@
 
 <script lang="ts">
 import Vue, { VueConstructor } from 'vue';
-import { Hamburger, Avatar, Back, Search, Upload } from '@/assets';
 import { mapActions, mapState } from 'vuex';
 import { RoomState, Host } from '@/views/List/typings';
 import { POSITION } from 'vue-toastification';
@@ -56,18 +55,11 @@ interface AppbarLocalType {
 	activeUploadMenuAction: () => void;
 	resetAllChatsAction: () => void;
 	underConstructionHandler: () => void;
+	userInfoHandler: () => void;
 }
 
 export default (Vue as VueConstructor<Vue & AppbarLocalType>).extend({
-	name: 'Appbar',
-
-	components: {
-		Hamburger,
-		Avatar,
-		Back,
-		Search,
-		Upload,
-	},
+	name: 'AppbarVue',
 
 	computed: {
 		...mapState('userReducer', {
@@ -109,7 +101,7 @@ export default (Vue as VueConstructor<Vue & AppbarLocalType>).extend({
 						break;
 				}
 			} catch (error) {
-				console.error(error.message);
+				console.error((error as Error).message);
 			}
 		},
 

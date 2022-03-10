@@ -47,7 +47,7 @@ const actions = {
 			const rooms = response.data;
 			commit('updateRooms', rooms);
 		} catch (error) {
-			console.error(error.message);
+			console.error((error as Error).message);
 		}
 	},
 };

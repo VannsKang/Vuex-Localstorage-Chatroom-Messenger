@@ -18,7 +18,7 @@ import Vue, { PropType } from 'vue';
 import { User } from '@/views/Home/typings';
 
 export default Vue.extend({
-	name: 'LoginUser',
+	name: 'LoginUserVue',
 
 	props: {
 		user: {

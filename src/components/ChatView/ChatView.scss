@@ -27,7 +27,7 @@
 					width: 6.438rem;
 					color: $charcoal-grey-two;
 					text-align: center;
-					font-family: AppleSDGothicNeo;
+
 					font-size: 0.75rem;
 					font-weight: 500;
 					opacity: 0.4;
@@ -45,7 +45,7 @@
 					border-radius: 12px;
 					box-shadow: 0 2px 4px 0 rgba(91, 56, 177, 0.4);
 					text-align: right;
-					font-family: AppleSDGothicNeo;
+
 					font-size: 0.875rem;
 					font-weight: 600;
 					letter-spacing: -0.1px;
@@ -70,7 +70,7 @@
 					margin-bottom: 0.625rem;
 					margin-right: 0.313rem;
 					color: $charcoal-grey-two;
-					font-family: AppleSDGothicNeo;
+
 					font-size: 0.75rem;
 					font-weight: 500;
 					opacity: 0.4;
@@ -86,7 +86,7 @@
 					color: $charcoal-grey-two;
 					border-radius: 12px;
 					box-shadow: 0 2px 4px 0 $black-10;
-					font-family: AppleSDGothicNeo;
+
 					font-size: 0.875rem;
 					font-weight: 600;
 					letter-spacing: -0.1px;
@@ -111,7 +111,7 @@
 					margin-left: 0.313rem;
 					margin-bottom: 0.625rem;
 					color: $charcoal-grey-two;
-					font-family: AppleSDGothicNeo;
+
 					font-size: 0.75rem;
 					font-weight: 500;
 					opacity: 0.4;
@@ -124,6 +124,7 @@
 		position: absolute;
 		top: 33.313rem;
 		padding: 0 1rem;
+
 		@include flexSet('space-between', 'center');
 
 		> input {
@@ -136,7 +137,7 @@
 
 			&::placeholder {
 				color: #74747e;
-				font-family: AppleSDGothicNeo;
+
 				font-size: 0.875rem;
 				font-weight: 500;
 				opacity: 0.6;
@@ -150,6 +151,7 @@
 			margin-left: 0.75rem;
 			background-color: var(--primary);
 			border-radius: 25px;
+
 			&:hover {
 				cursor: pointer;
 			}

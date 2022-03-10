@@ -48,7 +48,7 @@ const actions = {
 			const photos = response.data;
 			commit('updatePhotos', photos);
 		} catch (error) {
-			console.error(error.message);
+			console.error((error as Error).message);
 		}
 	},
 };

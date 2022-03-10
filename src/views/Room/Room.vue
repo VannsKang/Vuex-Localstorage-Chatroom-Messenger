@@ -42,7 +42,7 @@ import { RoomState, Host } from '@/views/List/typings';
 import { UserState, Logined } from '@/views/Home/typings';
 
 export default (Vue as VueConstructor<Vue & RoomLocalType>).extend({
-	name: 'Room',
+	name: 'RoomVue',
 
 	components: { ChatView, Upload },
 
@@ -93,7 +93,7 @@ export default (Vue as VueConstructor<Vue & RoomLocalType>).extend({
 				// reset local chat if no valid roomlog
 				component.chats = [];
 				this.resetChatLogAction();
-				console.warn(error.message);
+				console.warn((error as Error).message);
 			}
 		},
 

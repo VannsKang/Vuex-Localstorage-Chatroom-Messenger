@@ -57,7 +57,7 @@ const actions = {
 			const users = response.data;
 			commit('updateUsers', users);
 		} catch (error) {
-			console.error(error.message);
+			console.error((error as Error).message);
 		}
 	},
 };

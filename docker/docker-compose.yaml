@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app-frontend:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      args:
+        - nodeVersion=${NODE_VERSION}
+        - devPort=${DEV_PORT}
+        - author=${AUTHOR}
+    container_name: vuex-chatroom_c
+    ports:
+      - ${DEV_PORT}:${DEV_PORT}
+    volumes:
+      - ../public:/app/public
+      - ../src:/app/src
+    stdin_open: true
+    tty: true
